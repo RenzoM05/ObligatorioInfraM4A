@@ -16,7 +16,7 @@ do
 
 	case $option in
 		1)
-			echo "Ingresaste a probar fortaleza"
+			sh fortaleza.sh
 		;;
 		2)
 			echo "Ingresaste a obtener o"
