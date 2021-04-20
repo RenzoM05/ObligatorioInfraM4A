@@ -19,7 +19,7 @@ do
 			sh fortaleza.sh
 		;;
 		2)
-			echo "Ingresaste a obtener o"
+			sh mostrar_o.sh
 		;;
 		3)
 			echo "Ingresaste a guardar informe"
