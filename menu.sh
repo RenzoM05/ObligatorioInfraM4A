@@ -22,7 +22,7 @@ do
 			sh mostrar_o.sh
 		;;
 		3)
-			echo "Ingresaste a guardar informe"
+			sh generar_reporte.sh
 		;;
 		4)
 			echo "Saliendo"
@@ -34,8 +34,3 @@ do
 	read -p 'Presione cualquier boton para continuar... '
 
 done
-
-pause(){
-	read -p "$*"
-}
-
