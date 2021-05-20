@@ -1,8 +1,68 @@
 #!bin/bash
 
+function Fortaleza
+{
+	echo "Ingresaste la contraseña"
+	read password
+	password=${password,,}
+	echo ""
+	echo "----------------------------------------------"
+
+	largo=$(expr "${#password}")
+	isPasswordSecure=1
+	re="[0-9]"
+	minimunLenght=3
+	noNumberPassword=$(printf '%s' "$password" | sed 's/[0-9]//g')
+
+	if [[ -z "$noNumberPassword" ]];
+	then
+		echo "La contraseña debe tener caracteres no numericos"
+		isPasswordSecure=0
+	else
+		PalabraExisteEnDiccionario
+		retorno=$?	
+	fi
+
+	if (($largo < $minimunLenght));
+	then
+		echo "La contraseña es demasiado corta"
+		isPasswordSecure=0
+	fi
+
+	if [[ ! $password =~ $re ]];
+	then
+		echo "Debe contener numeros"
+		isPasswordSecure=0
+	fi
+
+	if (( $retorno == 1 ));
+	then
+		echo "La palabra se encuentra en el diccionario"
+		isPasswordSecure=0
+	fi
+
+	if (( $isPasswordSecure == 1))
+	then
+		echo "La contraseña es segura"
+	fi
+	echo "----------------------------------------------"
+}
+
+function PalabraExisteEnDiccionario
+{
+	resultadoDeBusqueda=$(grep -x $noNumberPassword diccionario.txt) &>/dev/null 
+	if [[ -z $resultadoDeBusqueda ]];
+	then
+		retorno=0
+	else
+		retorno=1
+	fi
+	return "$retorno"
+}
+
 function ObtenerO
 {
-	MSG = "Lista de palabras del diccionario que estan compuestas por la vocal 'o' unicamente:"
+	MSG="Lista de palabras del diccionario que estan compuestas por la vocal 'o' unicamente:"
 	echo ""
 	echo $MSG
 	echo ""
@@ -12,7 +72,7 @@ function ObtenerO
 
 function GenerarReporte
 {
-	mkdir Informes 2>>err.log
+	mkdir informes &>/dev/null 
 
 	day=$(date +%d)
 	month=$(date +%m)
@@ -20,9 +80,9 @@ function GenerarReporte
 	hour=$(date +%H)
 	minute=$(date +%M)
 
-	echo "Fecha del registro $day/$month/$year $hour:$minute" > Informes/letras_o.txt 2>>err.log
-	echo "" >> Informes/letras_o.txt 2>>err.log
-	grep -Ei "o+" diccionario.txt | grep -vE "[aeiu]+" >> Informes/letras_o.txt 2>>err.log
+	echo "Fecha del registro $day/$month/$year $hour:$minute" > informes/letras_o.txt 2>>err.log
+	echo "" >> informes/letras_o.txt 2>>err.log
+	grep -Ei "o+" diccionario.txt | grep -vE "[aeiu]+" >> informes/letras_o.txt 2>>err.log
 
 	echo "Se Genero el Reporte $day/$month/$year $hour:$minute"
 }
@@ -43,7 +103,7 @@ do
 
 	case $option in
 		1)
-			sh fortaleza.sh
+			Fortaleza
 		;;
 		2)
 			ObtenerO
@@ -59,7 +119,6 @@ do
 		;;
 	esac
 	read -p 'Presione cualquier boton para continuar... '
-
 done
 
 
