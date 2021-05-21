@@ -101,17 +101,27 @@ do
 	tput cup 5 21
 	read option
 
+	day=$(date +%d)
+	month=$(date +%m)
+	year=$(date +%y)
+	hour=$(date +%H)
+	minute=$(date +%M)
+
 	case $option in
 		1)
+		        echo "$day/$month/$year $hour:$minute: Usuario Selecciono: Opcion 1 - Fortaleza" >> log_script.txt
 			Fortaleza
 		;;
 		2)
+			echo "$day/$month/$year $hour:$minute: Usuario Selecciono: Opcion 2 - Obtener \"o\"" >> log_script.txt
 			ObtenerO
 		;;
 		3)
+			echo "$day/$month/$year $hour:$minute: Usuario Selecciono: Opcion 3 - Guardar Informe" >> log_script.txt
 			GenerarReporte
 		;;
 		4)
+			echo "$day/$month/$year $hour:$minute: Usuario Selecciono: Opcion 4 - Salir" >> log_script.txt
 			echo "Saliendo"
 		;;
 		*)
