@@ -125,6 +125,7 @@ do
 			echo "Saliendo"
 		;;
 		*)
+			echo "$day/$month/$year $hour:$minute: Usuario Ingreso: \" $option \" - Opcion no valida" >> log_script.txt
 			echo "Opción no valida"
 		;;
 	esac
