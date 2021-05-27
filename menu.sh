@@ -13,6 +13,7 @@ function Fortaleza
 	re="[0-9]"
 	minimunLenght=3
 	noNumberPassword=$(printf '%s' "$password" | sed 's/[0-9]//g')
+ 	retorno=0
 
 	if [[ -z "$noNumberPassword" ]];
 	then
