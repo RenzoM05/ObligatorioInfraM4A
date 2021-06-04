@@ -2,7 +2,7 @@
 
 function Fortaleza
 {
-	echo "Ingresaste la contraseña"
+	echo "Ingrese la contraseña"
 	read password
 	password=${password,,}
 	echo ""
